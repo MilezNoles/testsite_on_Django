@@ -1,0 +1,11 @@
+<h3>Комментарий</h3>
+
+<form action="{% url 'add_news' %}" method="post">
+    {% csrf_token %}
+
+    {{form.as_p}}
+
+    <button type="submit" class="btn btn-primary btn-lg btn-warning">Добавить коммент</button>
+</form>
+
+

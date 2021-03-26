@@ -1,0 +1,69 @@
+{% extends "base.html"  %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+
+{% block h1_time %}
+<h1 class="text-left mb-5">{{ title }}:</h1>
+{% endblock %}
+
+
+{% block mid_page %}
+<div class="col-md-12">
+
+    {% for i in commentary %}
+    <div class="card mb-3">
+        <div class="card-header">
+            <h3>{{i.nickname}}</h3>
+        </div>
+        <div class="card-body">
+
+
+            <p class="card-text "> {{ i.message|safe | linebreaks}} </p>
+
+
+        </div>
+        <div class="card-footer text-muted">
+            {{ i.created_at | date:"Y-m-d H:i" }}
+        </div>
+    </div>
+    {% endfor %}
+
+
+</div>
+{%if request.user.is_authenticated %}
+<div class="col-md-12">
+    <h1>Добавление комментария</h1>
+
+    <form action="{% url 'comments' %}" method="post">
+        {% csrf_token %}
+
+        <p>Имя пользователя: <strong>{{user.username}}</strong></p>
+        {{form.media}}
+        {{form.as_p}}
+
+        <button type="submit" class="btn btn-primary btn-lg btn-warning">Добавить коментарий</button>
+    </form>
+</div>
+{%else%}
+<div class="d-flex justify-content-center col-md-12">
+
+    <span class="navbar-text">Чтобы оставлять комментарии нужно <a class="" href="{% url 'register' %}">зарегистрироваться </a>
+        или выполнить <a class="" href="{% url 'login' %}">вход</a></span>
+
+
+</div>
+{%endif%}
+
+{% endblock %}
+
+
+{% block footer %}
+<a name="bottom" id="bottom"></a>
+<footer class="footer mt-auto py-3 bg-gray">
+    <div class="container">
+        <p class="text-muted text-center">{% now "Y-m-d H:i" %}</p>
+    </div>
+</footer>
+{% endblock %}

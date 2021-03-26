@@ -1,0 +1,45 @@
+{% extends "base.html"  %}
+
+
+{% block title %}{{ news.title }}{% endblock %}
+
+
+{% block h1_time %}
+<h1 class="text-center">{{ news.title }}</h1>
+{% endblock %}
+
+
+{% block mid_page %}
+ <div class="col-md-12">
+
+
+            <div class="card mb-3">
+                <div class="card-header">
+                    Категория: <a href="{{ news.category.get_absolute_url }}" class="text-dark">{{ news.category}}</a>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-column justify-content-center">
+                        {% if news.photo %}
+                        <img src="{{ news.photo.url }}" height="500" class="mr-3">
+                        {% else %}
+                        <img src="https://picsum.photos/id/443/800/300?grayscale" class="mr-3">
+                        {% endif %}
+                    </div>
+                    <div class="d-flex flex-column">
+                        {% autoescape off %}
+                        <p class="card-text p-3"> {{ news.content| linebreaks}} </p>
+                        {% endautoescape %}
+                    </div>
+
+                </div>
+                <div class="card-footer text-muted">
+                    {{ news.created_at | date:"Y-m-d H:i" }}
+                </div>
+            </div>
+
+
+        </div>
+
+{% endblock %}
+
+

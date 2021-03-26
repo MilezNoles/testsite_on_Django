@@ -1,0 +1,53 @@
+{% extends "base.html"  %}
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block h1_time %}
+<h1 class="text-center">{{ title }}</h1>
+
+{% now "Y-m-d H:i" %}
+{% endblock %}
+
+{% block sidebar %}
+
+ {% include "inc/_sidebar.html"  %}
+
+{% endblock %}
+
+{% block content %}
+
+
+
+
+{% for i in news %}
+
+<div class="card mb-3">
+    <div class="card-header">
+        Категория: <a href="{{ i.category.get_absolute_url }}" class="text-dark">{{ i.category}}</a>
+    </div>
+    <div class="card-body">
+        <div class="media">
+            {% if i.photo %}
+            <img src="{{ i.photo.url }}" width="350" class="mr-3">
+            {% else %}
+            <img src="https://picsum.photos/id/443/350/300?grayscale" class="mr-3">
+            {% endif %}
+            <div class="media-body">
+                <h5 class="card-title {% cycle 'text-danger' 'text-success'  %}"> {{ i.title }} </h5>
+                {% autoescape off %}
+                <p class="card-text"> {{ i.content| linebreaks | truncatewords:50 }} </p>
+                {% endautoescape %}
+                <a href="{{ i.get_absolute_url }}" class="btn btn-primary">Read more...</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="card-footer text-muted">
+        {{ i.created_at | date:"Y-m-d H:i" }}
+    </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html"  %}
+
+{% block title %}
+Логин :: {{block.super}}
+{% endblock %}
+
+
+{% block mid_page %}
+
+<div class="d-flex justify-content-center col-md-12">
+    <div class="col-md-7">
+        {% include "inc/_messages.html" %}
+        <h1>Логин</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <button type="submit" class="btn btn-primary btn-lg btn-warning">Логин</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
